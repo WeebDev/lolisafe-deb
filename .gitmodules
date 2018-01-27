@@ -1,0 +1,3 @@
+[submodule "lolisafe"]
+	path = lolisafe
+	url = git@github.com:WeebDev/lolisafe.git
