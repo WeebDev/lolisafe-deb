@@ -1,0 +1,4 @@
+#!/bin/sh
+# preinst script for lolisafe
+
+exit 0

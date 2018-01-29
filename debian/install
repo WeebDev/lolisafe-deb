@@ -1,0 +1,12 @@
+lolisafe/config.sample.js /etc/lolisafe
+lolisafe/nginx.sample.conf /etc/lolisafe
+lolisafe/README.md /etc/lolisafe
+lolisafe/README.md /usr/share/lolisafe
+lolisafe/controllers/* /usr/share/lolisafe/controllers
+lolisafe/database/* /usr/share/lolisafe/database
+lolisafe/routes/* /usr/share/lolisafe/routes
+lolisafe/views	/usr/share/lolisafe/views
+lolisafe/package.json /usr/share/lolisafe
+lolisafe/lolisafe.js /usr/share/lolisafe
+lolisafe/pages/* /usr/share/lolisafe/pages
+lolisafe/public/* /usr/share/lolisafe/public

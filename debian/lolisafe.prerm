@@ -1,0 +1,8 @@
+#!/bin/sh
+# prerm script for lolisafe
+#
+# see: dh_installdeb(1)
+
+service lolisafe stop
+
+exit 0

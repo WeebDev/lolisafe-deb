@@ -1,0 +1,23 @@
+#!/bin/sh
+# postrm script for lolisafe
+
+echo "Uninstalling lolisafe service" >&2
+service lolisafe force-uninstall
+
+id -u lolisafe > /dev/null 2>&1
+if [[ $? -eq 0 ]]
+then
+	echo "Removing lolisafe user" >&2
+	userdel lolisafe
+fi
+
+echo "Removing files..." >&2
+echo "/var/www/lolisafe/uploads will NOT be removed!" >&2
+echo "/etc/lolisafe/ will NOT be removed!" >&2
+rm -rf /var/www/lolisafe/public
+rm -rf /var/www/lolisafe/pages
+echo "Giving ownership of /var/www/lolisafe/ to root!" >&2
+chown -R root:root /var/www/lolisafe/
+rm -rf /usr/share/lolisafe/
+
+exit 0

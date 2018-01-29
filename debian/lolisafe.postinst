@@ -1,0 +1,48 @@
+#!/bin/sh
+
+id -u lolisafe > /dev/null 2>&1
+if [[ $? -eq 1 ]];
+then
+	echo "Creating lolisafe user with parameters..." >&2
+	useradd -r -d /usr/share/lolisafe -G www-data -s /bin/sh -U lolisafe
+else
+	echo "User lolisafe already exists!" >&2
+fi
+
+mv /usr/share/lolisafe/pages /var/www/lolisafe/
+mv /usr/share/lolisafe/public /var/www/lolisafe/
+
+chown lolisafe:adm /var/log/lolisafe.log
+echo "chowning /var/www/lolisafe to lolisafe:www-data" >&2
+chown -R lolisafe:www-data /var/www/lolisafe
+echo "chowning /usr/share/lolisafe to lolisafe:lolisafe" >&2
+chown -R lolisafe:lolisafe /usr/share/lolisafe
+echo "Installing node packages in /usr/share/lolisafe" >&2
+npm install --prefix /usr/share/lolisafe/
+echo "NPM Install finished, you can ignore the package-lock warning"
+cp /etc/lolisafe/config.sample.js /etc/lolisafe/config.js
+sed -i -e 's/.\/database\/db/\/.\/usr\/share\/lolisafe\/database\/db/g' /etc/lolisafe/config.sample.js
+sed -i -e 's/root\ \/path\/to\/your\/uploads\/folder/\/var\/www\/lolisafe\/uploads/g' /etc/lolisafe/nginx.sample.conf
+ln -s /etc/lolisafe/config.js /usr/share/lolisafe/config.js
+
+echo "Creating lolisafe directories..." >&2
+
+mkdir -p /var/www/lolisafe/
+
+if [ ! -L "/usr/share/lolisafe/pages/" ]
+then
+	ln -s /var/www/lolisafe/pages /usr/share/lolisafe/pages
+fi
+
+if [ ! -L "/var/www/lolisafe/public/" ]
+then
+	ln -s /var/www/lolisafe/public /usr/share/lolisafe/public
+fi
+
+#Don't need to symlink the ./uploads folder because we sed the config to show different.
+
+if [ ! -e "/var/log/lolisafe.log" ]; then touch /var/log/lolisafe.log;fi
+
+echo "Done creating lolisafe directories!" >&2
+echo "Post install script finished!" >&2
+exit 0

@@ -1,0 +1,12 @@
+Source: lolisafe
+Section: web
+Priority: optional
+Maintainer: RyoshiKayo <kayo@kayo.moe>
+Build-Depends: debhelper (>=9), nodejs (>=8.9.4)
+Standards-Version: 3.9.6
+Homepage: https://github.com/RyoshiKayo/lolisafe-deb
+
+Package: lolisafe
+Architecture: any
+Depends: nginx, ${shlibs:Depends}, ${misc:Depends}
+Description: Debain package for a blazing fast file uploader and awesome bunker written in node!
