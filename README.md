@@ -2,6 +2,11 @@
 Debian Repository for the lolisafe PPA.
 
 ## Installing:
+```bash
+sudo add-apt-repository ppa:weebdev/ppa
+sudo apt-get update
+sudo apt install lolisafe
+```
 
 ## Starting/Stopping:
 In this instance, lolisafe is controlled via a service file. Starting is as easy as `sudo service lolisafe start` and stopping is the same `sudo service lolisafe stop`. 
