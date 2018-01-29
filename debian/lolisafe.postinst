@@ -1,13 +1,5 @@
 #!/bin/sh
-
-id -u lolisafe > /dev/null 2>&1
-if [[ $? -eq 1 ]];
-then
-	echo "Creating lolisafe user with parameters..." >&2
-	useradd -r -d /usr/share/lolisafe -G www-data -s /bin/sh -U lolisafe
-else
-	echo "User lolisafe already exists!" >&2
-fi
+NPM=/usr/share/lolisafe/node/bin/npm
 
 mv /usr/share/lolisafe/pages /var/www/lolisafe/
 mv /usr/share/lolisafe/public /var/www/lolisafe/

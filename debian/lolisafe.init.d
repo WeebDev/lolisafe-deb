@@ -12,6 +12,7 @@
 
 SCRIPT=/usr/share/lolisafe/lolisafe.js
 RUNAS=lolisafe
+NODE=/usr/share/lolisafe/node/bin/node
 
 PIDFILE=/var/run/lolisafe.pid
 LOGFILE=/var/log/lolisafe.log
@@ -25,7 +26,7 @@ start() {
 	fi
 	echo "Starting lolisafe..." >&2
 	echo "Starting lolisafe!" >> "$LOGFILE"
-	local CMD="cd /usr/share/lolisafe && /usr/bin/node $SCRIPT > $LOGFILE 2>&1 &"
+	local CMD="cd /usr/share/lolisafe && $NODE $SCRIPT > $LOGFILE 2>&1 &"
 	su -c "$CMD" "$RUNAS" 
 	echo $! > "$PIDFILE"
 	echo "Lolisafe started! $(cat $PIDFILE)" >&2
@@ -46,7 +47,7 @@ stop() {
 	fi
 	echo "Shutting down lolisafe..." >&2
 	echo "Stopping lolisafe" >> "$LOGFILE"
-	kill -n 15 $(cat "$PIDFILE") && rm -f "$PIDFILE"
+	kill -QUIT $(cat "$PIDFILE") || killall -u lolisafe && rm -f "$PIDFILE"
 	echo "Lolisafe stopped" >&2
 }
 

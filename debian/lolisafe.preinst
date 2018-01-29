@@ -1,4 +1,25 @@
 #!/bin/sh
 # preinst script for lolisafe
 
+id -u lolisafe > /dev/null 2>&1
+if [[ $? -eq 1 ]];
+then
+	echo "Creating lolisafe user with parameters..." >&2
+	useradd -r -d /usr/share/lolisafe -G www-data -s /bin/sh -U lolisafe
+else
+	echo "User lolisafe already exists!" >&2
+fi
+
+# Download NodeJS LTS (8.9.4)
+echo "Downloading NodeJS v8.9.4 (LTS)" >&2
+wget -q -O '/tmp/node-lts.tar.xz' 'https://nodejs.org/dist/v8.9.4/node-v8.9.4-linux-x64.tar.xz'
+
+echo "Extracting node-lts.tar.xz to /usr/share/lolisafe/" >&2
+mkdir -p /usr/share/lolisafe/node/
+tar xJf "/tmp/node-lts.tar.xz" -C /usr/share/lolisafe/node/ --strip-components 1
+
+echo "Cleaning up..." >&2
+echo "Removing /tmp/node-lts.tar.xz" >&2
+echo "Finished cleaning!" >&2
+
 exit 0

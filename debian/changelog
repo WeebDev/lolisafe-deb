@@ -1,4 +1,11 @@
-lolisafe (3.0.0) stable; urgency=medium
+lolisafe (3.0.0-1-ubuntu1~trusty) trusty; urgency=medium
+
+  * Made static link to node.
+  * Removed NodeJS dependancie requirement.
+
+ -- RyoshiKayo <kayo@kayo.moe>  Mon, 29 Jan 2018 05:16:46 -0500
+
+lolisafe (3.0.0ubuntu1~trusty) trusty; urgency=medium
 
     * Initial release.
 
